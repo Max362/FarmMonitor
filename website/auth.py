@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for
 from .models import User
-#This will allow us to use a hash for a password for security so we not store it in a plaintext
+#This will allow us to use a hash for a password for security, so we not store it in a plaintext
 from werkzeug.security import generate_password_hash, check_password_hash
 from . import db
 #Current user function can be used as we already use a UserMixin
@@ -9,7 +9,7 @@ from flask_login import login_user, login_required, logout_user, current_user
 
 auth = Blueprint('auth', __name__)
 
-# Defining a root with an appropriate method requests
+#Defining root with an appropriate method requests
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
@@ -22,7 +22,7 @@ def login():
             #Checking for validity of a hashed password if the same
             if check_password_hash(user.password, password):
                 flash('Logged in successfully!', category='success')
-                #Remembering user until server restart or browser cookies clean up
+                #Remembering user until server restarts or browser cookies clean-up
                 login_user(user, remember=True)
                 #If login successfull, user is redirected to the home page
                 return redirect(url_for('views.home'))
@@ -35,14 +35,14 @@ def login():
 
 
 @auth.route('/logout')
-#This decorater will make sure we can logout only after login first
+#This decorator will make sure we can logout only after login first
 @login_required
 def logout():
     logout_user()
     #After logout user is redirected to the login page
     return redirect(url_for('auth.login'))
 
-# Defining a root with an appropriate method requests
+#Defining a root with an appropriate method requests
 @auth.route('/sign-up', methods=['GET', 'POST'])
 def sign_up():
     if request.method == 'POST':
@@ -51,10 +51,10 @@ def sign_up():
         password1 = request.form.get('password1')
         password2 = request.form.get('password2')
 
-        # We look in the database entries for a specific user with a specific email
+        #We look in the database entries for a specific user with a specific email
         user = User.query.filter_by(email=email).first()
         if user:
-            # Alerting user of an error by using a flash function imported above to flash a message on the screen
+            #Alerting user about an error by using a flash function imported above to flash a message on the screen
             flash('Email already exists.', category='error')
         elif len(email) < 4:
             flash('Email must be greater than 3 characters.', category='error')
@@ -75,7 +75,7 @@ def sign_up():
             db.session.commit()
             login_user(new_user, remember=True)
             flash('Account created!', category='success')
-            #Redirection for another page (home in this instance) by the use of a redirect funcion imported above
+            #Redirection for another page (home in this instance), by the use of a redirect funcion imported above
             return redirect(url_for('views.home'))
 
     return render_template("sign_up.html", user=current_user)

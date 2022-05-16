@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <!-- Importing a bootstrap-->
+    <!--Importing a bootstrap-->
     <link
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
@@ -19,22 +19,22 @@
     <title>{% block title %}Home{% endblock %}</title>
   </head>
   <body>
-    <!-- Bootstrap navbar-->
+    <!--Bootstrap navbar-->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-     <!-- Expanding the navbar-->
+     <!--Expanding the navbar-->
       <button
         class="navbar-toggler"
         type="button"
         data-toggle="collapse"
         data-target="#navbar"
       >
-          <!-- Icon for navbar-->
+          <!--Icon for navbar-->
         <span class="navbar-toggler-icon"></span>
       </button>
-      <!-- Making navbar collapsable-->
+      <!--Making navbar collapsable-->
       <div class="collapse navbar-collapse" id="navbar">
         <div class="navbar-nav">
-        <!--These will show only if user is autenticated
+        <!--These will show only if user is autenticated-->
           {% if user.is_authenticated %}
           <a class="nav-item nav-link" id="home" href="/">Home</a>
           <a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
@@ -46,17 +46,17 @@
       </div>
     </nav>
 
-    <!-- We will see the flash messages by displaying them -->
+    <!--We will see the flash messages by displaying them-->
     {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
             {% for category, message in messages %}
             {% if category == 'error' %}
-                <!-- Displaying an error message box -->
+                <!--Displaying an error message box-->
     <div class="alert alert-danger alter-dismissable fade show" role="alert">
       {{ message }}
-        <!-- Button for dismissing an alert -->
+        <!--Button for dismissing an alert-->
       <button type="button" class="close" data-dismiss="alert">
-          <!-- Icon to show for a button-->
+          <!--Icon to show for a button-->
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
@@ -73,7 +73,7 @@
     <div class="container">
         {% block content %} {% endblock %}</div>
 
-    <!-- Scripts related to bootstrap-->
+    <!--Scripts related to bootstrap-->
     <script
       src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
       integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
@@ -90,7 +90,7 @@
       crossorigin="anonymous"
     ></script>
 
-    <!-- Loading JS from a static folder-->
+    <!--Loading JS from a static folder-->
     <script
       type="text/javascript"
       src="{{ url_for('static', filename='index.js') }}"

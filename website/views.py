@@ -7,9 +7,9 @@ import json
 #Defining a blueprint
 views = Blueprint('views', __name__)
 
-#Defining the route for home
+#Defining route for home page
 @views.route('/', methods=['GET', 'POST'])
-#We can not get to the home page unless we login first
+#We cannot get to the home page unless we login first
 @login_required
 def home():
     if request.method == 'POST':
@@ -18,15 +18,15 @@ def home():
         if len(note) < 1:
             flash('Note is too short!', category='error')
         else:
-            #Here we are adding the note
+            #Here we are adding note
             new_note = Note(data=note, user_id=current_user.id)
             db.session.add(new_note)
             db.session.commit()
             flash('Note added!', category='success')
-    # current_user detects if user is logged in or not
+    #current_user detects if user is logged in or not
     return render_template("home.html", user=current_user)
 
-#Defining the route for delete note
+#Defining route for delete note
 @views.route('/delete-note', methods=['POST'])
 def delete_note():
     note = json.loads(request.data)

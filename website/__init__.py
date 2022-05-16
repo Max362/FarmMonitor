@@ -4,32 +4,32 @@ from flask_sqlalchemy import SQLAlchemy
 from os import path
 from flask_login import LoginManager
 
-#Defining our database
+#Defining database
 db = SQLAlchemy()
 DB_NAME = "database.db"
 
-#Initialising the Flask App
+#Initialising Flask App
 def create_app():
     app = Flask(__name__)
     app.config['SECRET_KEY'] = 'hjshjhdjah kjshkjdhjs'
     app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
-    #Initialising our database
+    #Initialising database
     db.init_app(app)
 
     from .views import views
     from .auth import auth
 
-    #Registering our blueprints
+    #Registering blueprints
     app.register_blueprint(views, url_prefix='/')
     app.register_blueprint(auth, url_prefix='/')
 
-    #The models need to run befor we create the database
+    #The models need to run befor we create database
     from .models import User, Note
 
     create_database(app)
 
     login_manager = LoginManager()
-    #If user is not logged in flask will redirect us to login page
+    #If user is not logged in, flask will redirect us to login page
     login_manager.login_view = 'auth.login'
     #We telling login manager which app we are using
     login_manager.init_app(app)

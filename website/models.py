@@ -6,7 +6,7 @@ from sqlalchemy.sql import func
 class Note(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     data = db.Column(db.String(10000))
-    #Showing the current timezone with a correct time
+    #Showing current timezone with a correct time
     date = db.Column(db.DateTime(timezone=True), default=func.now())
     #Assosciating notes for each user by setting up a relationship below
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
