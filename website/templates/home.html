@@ -1,0 +1,29 @@
+<!-- Same as base.html that can also override its content-->
+{% extends "base.html" %} {% block title %}Home{% endblock %}
+{% block content %}
+
+    <!--The code to generate the notes-->
+<h1 align="center">Notes</h1>
+<ul class="list-group list-group-flush" id="notes">
+<!--Looping through all stored notes-->
+  {% for note in user.notes %}
+  <li class="list-group-item">
+  <!--data here, is text associated with the notes-->
+    {{ note.data }}
+      <!--Button will allow us to delete the note. We call JS to delete it-->
+    <button type="button" class="close" onClick="deleteNote({{ note.id }})">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </li>
+  {% endfor %}
+</ul>
+
+    <!--These will allow user to make notes-->
+<form method="POST">
+  <textarea name="note" id="note" class="form-control"></textarea>
+  <br />
+  <div align="center">
+    <button type="submit" class="btn btn-primary">Add Note</button>
+  </div>
+</form>
+{% endblock %}
