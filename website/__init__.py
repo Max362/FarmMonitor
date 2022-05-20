@@ -7,12 +7,14 @@ from flask_login import LoginManager
 #Defining database
 db = SQLAlchemy()
 DB_NAME = "database.db"
+SERVER_NAME = 'localhost:5000'
 
 #Initialising Flask App
 def create_app():
     app = Flask(__name__)
     app.config['SECRET_KEY'] = 'hjshjhdjah kjshkjdhjs'
     app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
+    app.config['SERVER_NAME'] = 'localhost:5000'
     #Initialising database
     db.init_app(app)
 

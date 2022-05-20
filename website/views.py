@@ -39,3 +39,15 @@ def delete_note():
             db.session.commit()
 
     return jsonify({})
+
+@views.route('/terms')
+def terms():
+    return render_template("terms.html")
+
+@views.route('/privacy')
+def privacy():
+    return render_template("privacy.html")
+
+@views.route('/contact')
+def contact():
+    return render_template("contact.html")
